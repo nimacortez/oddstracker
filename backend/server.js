@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -14,9 +15,11 @@ app.get('/', (req, res) => {
 
 app.get('/events', async (req, res) => {
   try {
-    const response = await axios.get('https://api.the-odds-api.com/v4/sports', {
+    const response = await axios.get('https://api.the-odds-api.com/v4/sports/upcoming/odds/', {
       params: {
-        apiKey: '8c29f602d6e6e7e72c40df4086672e3e'
+        regions: 'us',
+        markets: 'h2h',
+        apiKey: process.env.RAPIDAPI_KEY
       }
     });
     console.log('API response:', response.data);
