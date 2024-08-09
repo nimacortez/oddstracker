@@ -9,9 +9,20 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Homepage');
+app.get('/', async (req, res) => {
+  try {
+    const homepage = await axios.get('https://api.the-odds-api.com/v4/sports/', {
+      params: {
+        apiKey: process.env.RAPIDAPI_KEY
+      }
+    });
+    res.json(homepage.data);
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+    res.status(500).send('Error fetching data from API');
+  }
 });
+
 
 app.get('/sports', async (req, res) => {
   try {
