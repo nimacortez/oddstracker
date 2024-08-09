@@ -10,10 +10,10 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Homepage');
 });
 
-app.get('/events', async (req, res) => {
+app.get('/sports', async (req, res) => {
   try {
     const response = await axios.get('https://api.the-odds-api.com/v4/sports/upcoming/odds/', {
       params: {
